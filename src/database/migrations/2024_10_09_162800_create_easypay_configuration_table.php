@@ -1,6 +1,6 @@
 <?php
 
-namespace Controlink\LaravelEasypay\database\migrations;
+namespace Controlink\LaravelEasypay\Database\Migrations;
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
