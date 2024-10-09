@@ -1,0 +1,34 @@
+{
+  "name": "controlink/laravel-easypay",
+  "description": "This is a Laravel package for easy integration with the EasyPay payment gateway, supporting payments, refunds, and transaction management.",
+  "type": "library",
+  "require": {
+    "laravel/framework": "^8.0|^9.0|^10.0|^11.0",
+    "php": ">=8.0",
+    "guzzlehttp/guzzle": "^7.0"
+  },
+  "license": "proprietary",
+  "autoload": {
+    "psr-4": {
+      "Controlink\\LaravelEasypay\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "João Ribeiro",
+      "email": "joao.ribeiro@controlink.pt"
+    }
+  ],
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Controlink\\LaravelEasypay\\EasypayServiceProvider"
+      ],
+      "aliases": {
+        "Easypay": "Controlink\\LaravelEasypay\\Facades\\Easypay"
+      }
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
