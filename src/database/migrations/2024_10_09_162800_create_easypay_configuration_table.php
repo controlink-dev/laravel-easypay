@@ -1,19 +1,17 @@
 <?php
 
-namespace Controlink\LaravelEasypay\Database\Migrations;
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEasypayConfigurationTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         // Verifique se multi_tenant está habilitado
         if (config('easypay.multi_tenant', false)) {
@@ -38,7 +36,7 @@ class CreateEasypayConfigurationTable extends Migration
                 // Adiciona coluna de tenant, se aplicável
                 if ($useTenantColumn) {
                     if(!config('easypay.tenant_model')){
-                        throw new \Exception('The tenant model is not set in the Easypay configuration.');
+                        throw new Exception('The tenant model is not set in the Easypay configuration.');
                     }
 
                     $table->foreignIdFor(config('easypay.tenant_model'))->constrained()->cascadeOnDelete();
@@ -55,7 +53,7 @@ class CreateEasypayConfigurationTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         // Verifique se multi_tenant está habilitado antes de remover a tabela
         if (config('easypay.multi_tenant', false)) {
@@ -63,4 +61,4 @@ class CreateEasypayConfigurationTable extends Migration
             Schema::dropIfExists($tableName);
         }
     }
-}
+};

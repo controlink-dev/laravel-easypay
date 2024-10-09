@@ -1,12 +1,9 @@
 <?php
-
-namespace Controlink\LaravelEasypay\Database\Migrations;
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEasypayCustomersTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -59,4 +56,4 @@ class CreateEasypayCustomersTable extends Migration
         // Verifique se multi_tenant está habilitado antes de remover a tabela
         Schema::drop('easypay_customers');
     }
-}
+};
