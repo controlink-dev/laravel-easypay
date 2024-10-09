@@ -59,9 +59,8 @@ return new class extends Migration
     public function down()
     {
         // Verifique se multi_tenant está habilitado antes de remover a tabela
-        if (config('easypay.multi_tenant', false)) {
-            $tableName = config('easypay.pay_by_link_table_name', 'easypay_pay_by_link');
-            Schema::dropIfExists($tableName);
+        if (config('easypay.pay_by_link', false)) {
+            Schema::dropIfExists("easypay_pay_by_link");
         }
     }
 };
