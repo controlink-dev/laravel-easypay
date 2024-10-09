@@ -129,8 +129,7 @@ class EasypayPayByLinkService
 
         foreach($easypayResponse->communication_channels as $channel){
             $payByLink->communicationChannels()->create([
-                'type' => $channel->type,
-                'value' => $channel->value,
+                'channel' => $channel,
             ]);
         }
         // Return the response from the Easypay API
