@@ -111,7 +111,12 @@ class EasypayPayByLinkService
         ]);
 
         $customer = EasypayCustomer::create((array)$easypayResponse->customer);
-        $payment = EasypayPaymentPayByLink::create((array)$easypayResponse->payment);
+        $payment = EasypayPaymentPayByLink::create([
+            'methods' => serialize($easypayResponse->payment->methods),
+            'capture_descriptive' => $easypayResponse->payment->capture->descriptive,
+            'capture_key' => $easypayResponse->payment->capture->key,
+            'single_requested_amount' => $easypayResponse->payment->single->requested_amount,
+        ]);
 
         $payByLink->customer()->associate($customer);
         $payByLink->payment()->associate($payment);
