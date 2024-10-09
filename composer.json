@@ -10,7 +10,11 @@
   "license": "proprietary",
   "autoload": {
     "psr-4": {
-      "Controlink\\LaravelEasypay\\": "src/"
+      "Controlink\\LaravelEasypay\\": "src/",
+      "Controlink\\LaravelEasypay\\Facades\\": "src/Facades/",
+      "Controlink\\LaravelEasypay\\Http\\Controllers\\": "src/Http/Controllers/",
+      "Controlink\\LaravelEasypay\\Database\\Migrations\\": "src/database/migrations/",
+      "Controlink\\LaravelEasypay\\Models\\": "src/Models/"
     }
   },
   "authors": [

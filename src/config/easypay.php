@@ -22,21 +22,9 @@ return [
     // This is useful if you want to store the configuration settings in the database to make them dynamic, or multi-tenant.
     'multi_tenant' => false,
 
-    // The name of the database table to store the configuration settings.
-    // This is only used if the multi_tenant option is set to true.
-    'table_name' => 'easypay_configuration',
-
     // The tenant model to use for multi-tenant applications. (e.g., App\Models\User)
     // This is only used if the multi_tenant option is set to true.
     'tenant_model' => '',
-
-    // If true, the table will be created with a tenant column to store some type of identifier for the tenant.
-    // This is only used if the multi_tenant option is set to true.
-    'use_tenant_column' => false,
-
-    // The name of the column to store the tenant identifier.
-    // This is only used if the multi_tenant option is set to true and the use_tenant_column option is set to true.
-    'tenant_column_name' => 'tenant_id',
 
     // If true, "pay by link" will be enabled.
     // This feature allows you to generate a link that customers can use to pay for their orders.

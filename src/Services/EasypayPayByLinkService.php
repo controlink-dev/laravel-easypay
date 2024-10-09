@@ -3,6 +3,9 @@
 namespace Controlink\LaravelEasypay\Services;
 
 use Controlink\LaravelArpoone\Models\EasypayConfiguration;
+use Controlink\LaravelArpoone\Models\EasypayCustomer;
+use Controlink\LaravelArpoone\Models\EasypayPayByLink;
+use Controlink\LaravelArpoone\Models\EasypayPaymentPayByLink;
 use Controlink\LaravelEasypay\Http\Controllers\EasypayConfigurationController;
 use GuzzleHttp\Client;
 
@@ -96,6 +99,30 @@ class EasypayPayByLinkService
             throw new \Exception('Failed to create the payment link.');
         }
 
+        $easypayResponse = json_decode($response->getBody()->getContents());
+
+        $payByLink = new EasypayPayByLink([
+            'id' => $easypayResponse->id,
+            'status' => $easypayResponse->status,
+            'expiration_time' => $easypayResponse->expiration_time,
+            'type' => $easypayResponse->type,
+            'url' => $easypayResponse->url,
+            'image_url' => $easypayResponse->image,
+        ]);
+
+        $customer = EasypayCustomer::create($easypayResponse->customer);
+        $payment = EasypayPaymentPayByLink::create($easypayResponse->payment);
+
+        $payByLink->customer()->associate($customer);
+        $payByLink->payment()->associate($payment);
+        $payByLink->save();
+
+        foreach($easypayResponse->communication_channels as $channel){
+            $payByLink->communicationChannels()->create([
+                'type' => $channel->type,
+                'value' => $channel->value,
+            ]);
+        }
         // Return the response from the Easypay API
         return json_decode($response->getBody()->getContents());
 

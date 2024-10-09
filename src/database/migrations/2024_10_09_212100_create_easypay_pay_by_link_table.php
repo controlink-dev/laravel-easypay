@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEasypayConfigurationTable extends Migration
+class CreateEasypayPayByLinkTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,37 +15,42 @@ class CreateEasypayConfigurationTable extends Migration
      */
     public function up()
     {
-        // Verifique se multi_tenant está habilitado
-        if (config('easypay.multi_tenant', false)) {
-            $tableName = config('easypay.table_name', 'easypay_configuration');
-            $useTenantColumn = config('easypay.use_tenant_column', false);
-            $tenantColumnName = config('easypay.tenant_column_name', 'tenant_id');
+        $tableName = config('easypay.pay_by_link_table_name', 'easypay_pay_by_link');
 
-            Schema::create($tableName, function (Blueprint $table) use ($useTenantColumn, $tenantColumnName) {
+        // Verifique se multi_tenant está habilitado
+        if (config('easypay.multi_tenant', false) && config('easypay.pay_by_link', true)) {
+            Schema::create($tableName, function (Blueprint $table) {
                 $table->id();
 
-                // Armazena a URL da API
-                $table->string('url')->default('https://api.test.easypay.pt/');
+                $table->timestamp('expiration_time')->nullable();
+                $table->string('type');
+                $table->string('url');
+                $table->string('image');
+                $table->string('status');
+                $table->uuid('easypay_customer_id'); // Foreign key for customer
+                $table->uuid('easypay_payments_pay_by_link_id');  // Foreign key for payment
 
-                // Chave API da Arpoone
-                $table->string('api_key');
-
-                // ID da organização Arpoone
-                $table->string('account_id');
-
-                // Verifica se o SSL deve ser verificado
-                $table->boolean('verify_ssl')->default(true);
-
-                // Adiciona coluna de tenant, se aplicável
-                if ($useTenantColumn) {
-                    if(!config('easypay.tenant_model')){
-                        throw new \Exception('The tenant model is not set in the Easypay configuration.');
-                    }
-
-                    $table->foreignIdFor(config('easypay.tenant_model'))->constrained()->cascadeOnDelete();
+                if(!config('easypay.tenant_model')){
+                    throw new \Exception('The tenant model is not set in the Easypay configuration.');
                 }
 
+                $table->foreignIdFor(config('easypay.tenant_model'))->constrained()->cascadeOnDelete();
+
                 // Timestamps para controle de criação e atualização
+                $table->timestamps();
+            });
+        }
+
+        if(config('easypay.pay_by_link', false)){
+            Schema::create($tableName, function (Blueprint $table) {
+                $table->id();
+                $table->timestamp('expiration_time')->nullable();
+                $table->string('type');
+                $table->string('url');
+                $table->string('image');
+                $table->string('status');
+                $table->uuid('easypay_customer_id'); // Foreign key for customer
+                $table->uuid('easypay_payment_id');  // Foreign key for payment
                 $table->timestamps();
             });
         }
@@ -60,7 +65,7 @@ class CreateEasypayConfigurationTable extends Migration
     {
         // Verifique se multi_tenant está habilitado antes de remover a tabela
         if (config('easypay.multi_tenant', false)) {
-            $tableName = config('easypay.table_name', 'easypay_configuration');
+            $tableName = config('easypay.pay_by_link_table_name', 'easypay_pay_by_link');
             Schema::dropIfExists($tableName);
         }
     }

@@ -12,14 +12,13 @@ class EasypayConfiguration extends Model
     public function __construct(array $attributes = [])
     {
         // Set the table name dynamically from the config
-        $this->table = config('arpoone.table_name', 'easypay_configuration');
+        $this->table = config('easypay.table_name', 'easypay_configuration');
 
         $this->fillable = [
             'url',
             'api_key',
             'account_id',
             'verify_ssl',
-            config('arpoone.tenant_column_name', 'tenant_id')
         ];
 
         // Call the parent constructor
@@ -33,11 +32,10 @@ class EasypayConfiguration extends Model
 
     public function tenant()
     {
-        if (config('easypay.use_tenant_column', false)) {
+        if (config('easypay.multi_tenant', false)) {
             $tenantModel = config('easypay.tenant_model', null);
-            $tenantColumn = config('easypay.tenant_column_name', 'tenant_id');
 
-            return $tenantModel ? $this->belongsTo($tenantModel, $tenantColumn) : null;
+            return $tenantModel ? $this->belongsTo($tenantModel) : null;
         }
 
         throw new \Exception('Multi-tenant mode is not enabled in the Easypay configuration.');

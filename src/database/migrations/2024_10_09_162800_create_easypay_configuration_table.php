@@ -19,9 +19,8 @@ class CreateEasypayConfigurationTable extends Migration
         if (config('easypay.multi_tenant', false)) {
             $tableName = config('easypay.table_name', 'easypay_configuration');
             $useTenantColumn = config('easypay.use_tenant_column', false);
-            $tenantColumnName = config('easypay.tenant_column_name', 'tenant_id');
 
-            Schema::create($tableName, function (Blueprint $table) use ($useTenantColumn, $tenantColumnName) {
+            Schema::create($tableName, function (Blueprint $table) use ($useTenantColumn) {
                 $table->id();
 
                 // Armazena a URL da API

@@ -4,42 +4,24 @@ namespace Controlink\LaravelArpoone\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EasypayConfiguration extends Model
+class EasypayPayByLink extends Model
 {
-    protected $table;
-    protected $fillable = [];
+    protected $table = 'easypay_pay_by_link';
+    protected $primaryKey = 'id';
+    public $incrementing = false; // UUID
 
-    public function __construct(array $attributes = [])
+    public function customer()
     {
-        // Set the table name dynamically from the config
-        $this->table = config('arpoone.table_name', 'easypay_configuration');
-
-        $this->fillable = [
-            'url',
-            'api_key',
-            'account_id',
-            'verify_ssl',
-            config('arpoone.tenant_column_name', 'tenant_id')
-        ];
-
-        // Call the parent constructor
-        parent::__construct($attributes);
+        return $this->hasOne(EasypayCustomer::class);
     }
 
-    protected $casts = [
-        'verify_ssl' => 'boolean'
-    ];
-
-
-    public function tenant()
+    public function payment()
     {
-        if (config('easypay.use_tenant_column', false)) {
-            $tenantModel = config('easypay.tenant_model', null);
-            $tenantColumn = config('easypay.tenant_column_name', 'tenant_id');
+        return $this->HasOne(EasypayPaymentPayByLink::class);
+    }
 
-            return $tenantModel ? $this->belongsTo($tenantModel, $tenantColumn) : null;
-        }
-
-        throw new \Exception('Multi-tenant mode is not enabled in the Easypay configuration.');
+    public function communicationChannels()
+    {
+        return $this->hasMany(EasypayCommunicationChannel::class);
     }
 }
