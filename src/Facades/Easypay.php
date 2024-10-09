@@ -13,11 +13,4 @@ class Easypay extends Facade
     {
         return 'easypay';
     }
-
-    public function register()
-    {
-        $this->app->singleton('easypay', function () {
-            return new EasypayService(new EasypayConfigurationController(), new EasypayPayByLinkService());
-        });
-    }
 }

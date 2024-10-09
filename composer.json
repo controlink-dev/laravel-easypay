@@ -3,9 +3,9 @@
   "description": "This is a Laravel package for easy integration with the EasyPay payment gateway, supporting payments, refunds, and transaction management.",
   "type": "library",
   "require": {
-    "laravel/framework": "^8.0|^9.0|^10.0|^11.0",
     "php": ">=8.0",
-    "guzzlehttp/guzzle": "^7.0"
+    "guzzlehttp/guzzle": "^7.0",
+    "laravel/framework": "^8.0|^9.0|^10.0|^11.0"
   },
   "license": "proprietary",
   "autoload": {
@@ -30,5 +30,10 @@
     }
   },
   "minimum-stability": "stable",
-  "prefer-stable": true
+  "prefer-stable": true,
+  "config": {
+    "sort-packages": true,
+    "preferred-install": "dist",
+    "optimize-autoloader": true
+  }
 }

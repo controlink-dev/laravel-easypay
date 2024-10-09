@@ -1,6 +1,9 @@
 <?php
 namespace Controlink\LaravelEasypay;
 
+use Controlink\LaravelEasypay\Http\Controllers\EasypayConfigurationController;
+use Controlink\LaravelEasypay\Services\EasypayPayByLinkService;
+use Controlink\LaravelEasypay\Services\EasypayService;
 use Illuminate\Support\ServiceProvider;
 
 class EasypayServiceProvider extends ServiceProvider
@@ -45,6 +48,14 @@ class EasypayServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/config/easypay.php', 'easypay'
         );
+
+        // Bind the 'easypay' singleton to the service container
+        $this->app->singleton('easypay', function ($app) {
+            return new EasypayService(
+                new EasypayConfigurationController(),
+                new EasypayPayByLinkService()
+            );
+        });
     }
 
     /**
