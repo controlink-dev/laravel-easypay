@@ -110,7 +110,7 @@ class EasypayPayByLinkService
             'image_url' => $easypayResponse->image,
         ]);
 
-        if(is_null($easypayResponse->customer->language)){
+        if(!isset($easypayResponse->customer->language)){
             $easypayResponse->customer->language = 'PT';
         }
 
