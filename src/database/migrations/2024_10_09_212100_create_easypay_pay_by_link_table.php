@@ -12,12 +12,10 @@ return new class extends Migration
      */
     public function up()
     {
-        $tableName = config('easypay.pay_by_link_table_name', 'easypay_pay_by_link');
-
         // Verifique se multi_tenant está habilitado
         if (config('easypay.multi_tenant', false) && config('easypay.pay_by_link', true)) {
-            Schema::create($tableName, function (Blueprint $table) {
-                $table->id();
+            Schema::create('easypay_pay_by_link', function (Blueprint $table) {
+                $table->uuid('id')->primary();
 
                 $table->timestamp('expiration_time')->nullable();
                 $table->string('type');
@@ -39,8 +37,8 @@ return new class extends Migration
         }
 
         if(config('easypay.pay_by_link', false)){
-            Schema::create($tableName, function (Blueprint $table) {
-                $table->id();
+            Schema::create("easypay_pay_by_link", function (Blueprint $table) {
+                $table->uuid('id')->primary();
                 $table->timestamp('expiration_time')->nullable();
                 $table->string('type');
                 $table->string('url');

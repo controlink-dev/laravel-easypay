@@ -21,7 +21,7 @@ return new class extends Migration
                 $table->string('name');
                 $table->string('email');
                 $table->string('phone');
-                $table->string('language', 2); // Language code e.g., PT, EN, etc.
+                $table->string('language', 2)->default("PT"); // Language code e.g., PT, EN, etc.
 
                 if(!config('easypay.tenant_model')){
                     throw new \Exception('The tenant model is not set in the Easypay configuration.');
