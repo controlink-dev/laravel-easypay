@@ -14,8 +14,6 @@ return new class extends Migration
     {
         // Verifique se multi_tenant está habilitado
         if (config('easypay.multi_tenant', false)) {
-            $useTenantColumn = config('easypay.use_tenant_column', false);
-
             Schema::create('easypay_customers', function (Blueprint $table) {
                 $table->uuid('id')->primary();
                 $table->string('name');

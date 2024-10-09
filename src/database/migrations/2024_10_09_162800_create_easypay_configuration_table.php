@@ -15,10 +15,7 @@ return new class extends Migration
     {
         // Verifique se multi_tenant está habilitado
         if (config('easypay.multi_tenant', false)) {
-            $tableName = config('easypay.table_name', 'easypay_configuration');
-            $useTenantColumn = config('easypay.use_tenant_column', false);
-
-            Schema::create($tableName, function (Blueprint $table) use ($useTenantColumn) {
+            Schema::create("easypay_configurations", function (Blueprint $table) {
                 $table->id();
 
                 // Armazena a URL da API
@@ -34,13 +31,11 @@ return new class extends Migration
                 $table->boolean('verify_ssl')->default(true);
 
                 // Adiciona coluna de tenant, se aplicável
-                if ($useTenantColumn) {
-                    if(!config('easypay.tenant_model')){
-                        throw new Exception('The tenant model is not set in the Easypay configuration.');
-                    }
-
-                    $table->foreignIdFor(config('easypay.tenant_model'))->constrained()->cascadeOnDelete();
+                if(!config('easypay.tenant_model')){
+                    throw new Exception('The tenant model is not set in the Easypay configuration.');
                 }
+
+                $table->foreignIdFor(config('easypay.tenant_model'))->constrained()->cascadeOnDelete();
 
                 // Timestamps para controle de criação e atualização
                 $table->timestamps();
@@ -57,8 +52,7 @@ return new class extends Migration
     {
         // Verifique se multi_tenant está habilitado antes de remover a tabela
         if (config('easypay.multi_tenant', false)) {
-            $tableName = config('easypay.table_name', 'easypay_configuration');
-            Schema::dropIfExists($tableName);
+            Schema::dropIfExists("easypay_configurations");
         }
     }
 };
