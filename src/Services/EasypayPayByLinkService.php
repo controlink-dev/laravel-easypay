@@ -110,6 +110,10 @@ class EasypayPayByLinkService
             'image_url' => $easypayResponse->image,
         ]);
 
+        if(is_null($easypayResponse->customer->language)){
+            $easypayResponse->customer->language = 'PT';
+        }
+
         $customer = EasypayCustomer::create((array)$easypayResponse->customer);
         $payment = EasypayPaymentPayByLink::create([
             'methods' => serialize($easypayResponse->payment->methods),
