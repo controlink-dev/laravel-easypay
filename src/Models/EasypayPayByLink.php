@@ -23,16 +23,16 @@ class EasypayPayByLink extends Model
 
     public function customer()
     {
-        return $this->belongsTo(EasypayCustomer::class);
+        return $this->belongsTo(EasypayCustomer::class, 'easypay_customer_id');
     }
 
     public function payment()
     {
-        return $this->belongsTo(EasypayPaymentPayByLink::class);
+        return $this->belongsTo(EasypayPaymentPayByLink::class, 'easypay_payment_id');
     }
 
     public function communicationChannels()
     {
-        return $this->hasMany(EasypayCommunicationChannel::class);
+        return $this->hasMany(EasypayCommunicationChannel::class, 'easypay_pay_by_link_id');
     }
 }
