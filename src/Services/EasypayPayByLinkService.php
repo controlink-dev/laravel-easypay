@@ -2,6 +2,7 @@
 
 namespace Controlink\LaravelEasypay\Services;
 
+use Carbon\Carbon;
 use Controlink\LaravelEasypay\Models\EasypayConfiguration;
 use Controlink\LaravelEasypay\Models\EasypayCustomer;
 use Controlink\LaravelEasypay\Models\EasypayPayByLink;
@@ -104,7 +105,7 @@ class EasypayPayByLinkService
         $payByLink = new EasypayPayByLink([
             'id' => $easypayResponse->id,
             'status' => $easypayResponse->status,
-            'expiration_time' => $easypayResponse->expiration_time,
+            'expiration_time' => Carbon::parse($easypayResponse->expiration_time)->format('Y-m-d H:i:s'),
             'type' => $easypayResponse->type,
             'url' => $easypayResponse->url,
             'image_url' => $easypayResponse->image,
