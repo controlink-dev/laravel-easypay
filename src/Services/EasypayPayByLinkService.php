@@ -133,7 +133,7 @@ class EasypayPayByLinkService
             ]);
         }
         // Return the response from the Easypay API
-        return json_decode($response->getBody()->getContents());
+        return $payByLink;
 
     }
 
