@@ -42,7 +42,7 @@ return new class extends Migration
                 $table->timestamp('expiration_time')->nullable();
                 $table->string('type');
                 $table->string('url');
-                $table->string('image');
+                $table->string('image_url');
                 $table->string('status');
                 $table->uuid('easypay_customer_id'); // Foreign key for customer
                 $table->uuid('easypay_payment_id');  // Foreign key for payment
