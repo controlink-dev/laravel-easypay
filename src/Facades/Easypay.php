@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Facade;
 
 class Easypay extends Facade
 {
+    /**
+     * @method static \Controlink\LaravelEasypay\Http\Controllers\EasypayConfigurationController config()
+     * @method static \Controlink\LaravelEasypay\Services\EasypayPayByLinkService payByLink()
+     */
     protected static function getFacadeAccessor()
     {
         return 'easypay';
