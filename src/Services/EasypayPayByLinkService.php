@@ -2,10 +2,10 @@
 
 namespace Controlink\LaravelEasypay\Services;
 
-use Controlink\LaravelArpoone\Models\EasypayConfiguration;
-use Controlink\LaravelArpoone\Models\EasypayCustomer;
-use Controlink\LaravelArpoone\Models\EasypayPayByLink;
-use Controlink\LaravelArpoone\Models\EasypayPaymentPayByLink;
+use Controlink\LaravelEasypay\Models\EasypayConfiguration;
+use Controlink\LaravelEasypay\Models\EasypayCustomer;
+use Controlink\LaravelEasypay\Models\EasypayPayByLink;
+use Controlink\LaravelEasypay\Models\EasypayPaymentPayByLink;
 use Controlink\LaravelEasypay\Http\Controllers\EasypayConfigurationController;
 use GuzzleHttp\Client;
 

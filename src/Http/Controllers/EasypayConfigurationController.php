@@ -2,11 +2,10 @@
 
 namespace Controlink\LaravelEasypay\Http\Controllers;
 
-use Controlink\LaravelArpoone\Models\EasypayConfiguration;
+use Controlink\LaravelEasypay\Models\EasypayConfiguration;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Illuminate\Http\Request;
 
 class EasypayConfigurationController extends Controller
 {

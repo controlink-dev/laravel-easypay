@@ -1,11 +1,14 @@
 <?php
 
-namespace Controlink\LaravelArpoone\Models;
+namespace Controlink\LaravelEasypay\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 class EasypayCustomer extends Model
 {
+    use HasUuids;
+
     protected $table = 'easypay_customers';
     protected $primaryKey = 'id';
     public $incrementing = false; // UUID
