@@ -1,5 +1,5 @@
 <?php
-namespace Controlink\LaravelArpoone;
+namespace Controlink\LaravelEasypay;
 
 use Illuminate\Support\ServiceProvider;
 
