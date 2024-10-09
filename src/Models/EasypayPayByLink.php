@@ -17,7 +17,7 @@ class EasypayPayByLink extends Model
         'easypay_customer_id',              // Foreign key to the Customer table
         'easypay_payment_id',               // Foreign key to the Payment table
         'url',                     // Payment link URL
-        'image',                   // QR code or image URL for the payment
+        'image_url',                   // QR code or image URL for the payment
         'status'                   // Status of the payment link (e.g., ACTIVE, EXPIRED)
     ];
 
