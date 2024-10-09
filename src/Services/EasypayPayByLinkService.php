@@ -110,8 +110,8 @@ class EasypayPayByLinkService
             'image_url' => $easypayResponse->image,
         ]);
 
-        $customer = EasypayCustomer::create($easypayResponse->customer);
-        $payment = EasypayPaymentPayByLink::create($easypayResponse->payment);
+        $customer = EasypayCustomer::create((array)$easypayResponse->customer);
+        $payment = EasypayPaymentPayByLink::create((array)$easypayResponse->payment);
 
         $payByLink->customer()->associate($customer);
         $payByLink->payment()->associate($payment);
